@@ -1,12 +1,10 @@
-package Tests;
+package tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
-
-import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -33,7 +31,7 @@ public class StudentFormTests {
         String usermobile = "7999333344";
         String dateofbirth = "07 March,1990";
         String subject = "Maths";
-        String hobbies = "Reading, Music";
+        String hobby = "Music";
         String currenraddress = "Somestreet 123";
         String state = "Uttar Pradesh";
         String city = "Agra";
@@ -49,14 +47,13 @@ public class StudentFormTests {
         $("#firstName").setValue(firstname);
         $("#lastName").setValue(lastname);
         $("#userEmail").setValue(useremail);
-        $("#gender-radio-2").closest("div").click();
+        $("#genterWrapper").$(byText(gender)).click();
         $("#userNumber").setValue(usermobile);
         $("#dateOfBirthInput").sendKeys((Keys.CONTROL + "a"));
         $("#dateOfBirthInput").sendKeys((Keys.SPACE));
         $("#dateOfBirthInput").setValue(dateofbirth).pressEnter();
         $("#subjectsInput").setValue(subject).pressEnter();
-        $("#hobbies-checkbox-2").closest("div").click();
-        $("#hobbies-checkbox-3").closest("div").click();
+        $("#hobbiesWrapper").$(byText(hobby)).click();
         $("#uploadPicture").uploadFromClasspath("img.png");
         $("#currentAddress").setValue(currenraddress);
         $("#state").click();
@@ -75,7 +72,7 @@ public class StudentFormTests {
                 text(usermobile),
                 text(dateofbirth),
                 text(subject),
-                text(hobbies),
+                text(hobby),
                 text("img.png"),
                 text(currenraddress),
                 text(state + " " + city));
