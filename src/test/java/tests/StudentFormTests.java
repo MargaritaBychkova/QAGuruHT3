@@ -24,6 +24,17 @@ public class StudentFormTests {
 
     @Test
     void fillFormTest() {
+
+        open("/automation-practice-form");
+        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+        executeJavaScript("$('footer').remove()");
+        executeJavaScript("$('#fixedban').remove()");
+
+        //Selenide.zoom(0.75);
+        //Selenide.executeJavaScript(
+              //  "document.querySelector(\"footer\").hidden = 'true';" +
+                 //       "document.querySelector(\"#fixedban\").hidden = 'true'");
+
         String firstname = "Jane";
         String lastname = "Dow";
         String useremail = "Jane@dow.com";
@@ -36,11 +47,7 @@ public class StudentFormTests {
         String state = "Uttar Pradesh";
         String city = "Agra";
 
-        open("/automation-practice-form");
-        Selenide.zoom(0.75);
-        Selenide.executeJavaScript(
-                "document.querySelector(\"footer\").hidden = 'true';" +
-                        "document.querySelector(\"#fixedban\").hidden = 'true'");
+
 
         //Fill the form
 
@@ -49,17 +56,24 @@ public class StudentFormTests {
         $("#userEmail").setValue(useremail);
         $("#genterWrapper").$(byText(gender)).click();
         $("#userNumber").setValue(usermobile);
-        $("#dateOfBirthInput").sendKeys((Keys.CONTROL + "a"));
-        $("#dateOfBirthInput").sendKeys((Keys.SPACE));
-        $("#dateOfBirthInput").setValue(dateofbirth).pressEnter();
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").selectOption("March");
+        $(".react-datepicker__year-select").selectOption("1990");
+        $(".react-datepicker__day--007:not(.react-datepicker__day--outside-month)").click();
+
+        //("#dateOfBirthInput").sendKeys((Keys.CONTROL + "a"));
+       //$("#dateOfBirthInput").sendKeys((Keys.SPACE));
+        //$("#dateOfBirthInput").setValue(dateofbirth).pressEnter();
+
+
         $("#subjectsInput").setValue(subject).pressEnter();
         $("#hobbiesWrapper").$(byText(hobby)).click();
         $("#uploadPicture").uploadFromClasspath("img.png");
         $("#currentAddress").setValue(currenraddress);
         $("#state").click();
-        $(byText("Uttar Pradesh")).click();
+        $("#stateCity-wrapper").$(byText(state)).click();
         $("#city").click();
-        $(byText("Agra")).click();
+        $("#stateCity-wrapper").$(byText(city)).click();
         $("#submit").scrollIntoView("false").click();
 
         //Asserts
